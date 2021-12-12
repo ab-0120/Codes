@@ -164,9 +164,6 @@ int main()
     int head;
     scanf("%d",&head);
     
-    int size;
-    scanf("%d",&size);
-    
     int move;
     scanf("%d",&move);
     
