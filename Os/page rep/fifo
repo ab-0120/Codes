@@ -1,0 +1,48 @@
+#include<stdio.h>
+
+int main()
+{
+  int count=0;
+    printf("ENTER THE NUMBER OF PAGES:\n");
+    int n;
+    scanf("%d",&n);
+    //
+    
+    printf("ENTER THE PAGE NUMBER :\n");
+    int a[n];
+    for(int i=0;i<n;i++)
+        scanf("%d",&a[i]);
+    //
+    printf("ENTER THE NUMBER OF FRAMES :");
+    int no;
+    scanf("%d",&no);
+    //
+    int frame[no];
+    for(int i=0;i<no;i++)
+        frame[i]= -1;
+    
+    //
+    int j;
+    printf("\tref string\t\t frame\n");
+    for(int i=0;i<n;i++)
+    {
+        printf("\t\t%d\t\typename",a[i]);
+        int avail=0;
+        for(int k=0;k<no;k++)
+           if(frame[k]==a[i])
+             avail=1;
+        
+        if(avail==0)
+        {
+            count++;
+            frame[j]=a[i];
+            j=(j+1)%no;
+            
+            for(int k=0;k<no;k++)
+              printf("%d",frame[k]);
+        }
+        printf("\n");
+    }
+    printf("Page Fault Is %d",count);
+    return 0;
+}
