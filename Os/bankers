@@ -1,0 +1,110 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int p;
+    scanf("%d",&p);
+    //
+    int res;
+    scanf("%d",&res);
+    
+    // INPUT  MAX resources FOR EACH PROCESS
+    int max[p][res];
+    printf("Enter max resources---------------------\n");
+    for(int i=0;i<p;i++)
+    {
+        printf("FOR P[%d]--",i);
+        for(int j=0;j<res;j++)
+           scanf("%d", &max[i][j]);
+        printf("\n");
+    }
+    // INPUT AVAILABLE FOR EACH PROCESS
+    
+    int allocated[p][res];
+    printf("Enter allocated resources---------------------\n");
+    for(int i=0;i<p;i++)
+    {
+        printf("FOR P[%d]--",i);
+        for(int j=0;j<res;j++)
+           scanf("%d", &allocated[i][j]);
+        printf("\n");
+    }
+    // INPUT TOTAL AVAILABLE RESOURCES
+    
+    int available[res];
+    printf("Enter available resources-------------------------\n");
+    for(int i=0;i<res;i++)
+       scanf("%d",&available[i]);
+    
+    // CALCULATING NEED OF EACH PROCESS
+    
+    int need[p][res];
+    for(int i=0;i<p;i++)
+    {
+        for(int j=0;j<res;j++)
+           need[i][j]=max[i][j]-allocated[i][j];
+    }
+    
+    int completed[p]; // making a completed array
+    for(int i=0;i<p;i++)
+      completed[i]=0;
+    
+    // PRINTING
+    printf(" \t\tMaximuM\t\t Allocated\t\t Need\t\n");
+    for(int i=0;i<p;i++)
+    {
+        for(int j=0;j<res;j++)
+           printf("P[%d] \t\t %d \t\t %d\t\t %d\t\t",i,max[i][res],allocated[i][res],need[i][res]);
+        printf("\n");
+    }
+    
+    //
+    int count=0;
+    int index=0;
+    int counter=0;
+    int safe[p];
+    int isSafe=0;
+    while(count<p)
+    {
+        for(int i=0;i<p;i++)
+        {
+            if(completed[i]==0)
+            {
+                counter=0;index=i;
+                for(int j=0;j<res;j++)
+                {
+                    if(need[i][res]>available[j])
+                    {
+                        counter=1;
+                        break;
+                    }
+                }
+                
+                if(counter==0)
+                {
+                    for(int j=0;j<res;j++)
+                        available[index]+=max[index][res];
+                  
+                  completed[index]=1;
+                  
+                  safe[isSafe]=index;
+                  isSafe++;
+                }
+            }
+        }
+        count++;
+    }
+    
+    if(isSafe== p-1)
+    {
+        printf("\nSafe\n");
+        for(int i=0;i<p;i++)
+          printf("P<%d> ",safe[i]);
+    }
+    else
+       printf("\nUNSafe\n");
+    
+    return 0;
+}
